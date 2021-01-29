@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-
+const image = '../assets/campus.jpg'
 export default class Login extends React.Component {
     state = {
         username: '',
         password: ''
       }
+
+    
       render() {
         return (
+
           <View style={styles.container}>
             <Text style={styles.logo}>RBKlock-X</Text>
             <TextInput
@@ -20,16 +23,16 @@ export default class Login extends React.Component {
               onChangeText={(text) => this.setState({ password: text })}
               style={styles.input}
             />
-            <TouchableOpacity onPress={()=>{alert(this.state.username, this.state.password)}} style={styles.btnContainer}>
+            <TouchableOpacity onPress={()=>{this.props.logIn()}} style={styles.btnContainer}>
               <Text style={styles.btn}>Clock</Text>
             </TouchableOpacity>
-    
           </View>
         )
       }
 }
 
 const styles = StyleSheet.create({
+ 
     input: {
       height: 45,
       borderColor: 'gray',
