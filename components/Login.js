@@ -24,7 +24,7 @@ export default class Login extends React.Component {
               style={styles.input}
             />
             <TouchableOpacity onPress={()=>{this.props.logIn()}} style={styles.btnContainer}>
-              <Text style={styles.btn}>Clock</Text>
+              <Text style={styles.btn}>Clock-in</Text>
             </TouchableOpacity>
           </View>
         )
@@ -44,22 +44,22 @@ const styles = StyleSheet.create({
       color: "#841584",
     },
     logo: {
-      fontSize: 18,
+      fontSize: 40,
       fontWeight: "bold",
       color: "#841584",
       textAlign: 'center',
       marginBottom: 50
     },
     btnContainer: {
-      elevation: 8,
+      
       backgroundColor: "#841584",
       borderRadius: 20,
-      paddingVertical: 10,
+      paddingVertical: 12,
       marginHorizontal: 35,
       marginTop: 25
     },
     btn: {
-      fontSize: 18,
+      fontSize: 20,
       color: "#fff",
       fontWeight: "bold",
       alignSelf: "center"

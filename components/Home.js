@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import * as Location from 'expo-location';
+import Clock from './Clock'
 
 
-export default class Home extends Component {
+export default class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -38,18 +39,23 @@ export default class Home extends Component {
                     }).catch(err => { throw err })
                 }
             })
-        }).catch(err => { console.log(err) })
+        }).then(() => {
+            this.onPermisses()
+        })
+            .catch(err => { console.log(err) })
 
-        this.onPermisses()
     }
 
     //Check if employee nearby and update state
-    onPermisses = ()=>{
-       let d = this.getDistance(this.props.loc.latitude, this.props.loc.longitude, this.state.latitude, this.state.longitude) 
-       if(d>0.35){
-           alert('I think you gotta go there first !')
-       }
-       this.setState({nearby: true})
+    onPermisses = () => {
+        let d = this.getDistance(this.props.loc.latitude, this.props.loc.longitude, this.state.latitude, this.state.longitude)
+        console.log(this.props.loc.latitude, this.props.loc.longitude, this.state.latitude, this.state.longitude);
+        console.log(d);
+        if (d > 0.35) {
+            alert('I think you gotta go there first !')
+        }
+        this.setState({ nearby: true })
+
     }
 
 
@@ -74,29 +80,56 @@ export default class Home extends Component {
 
     render() {
         return (
-            <View>
-                <Text> Ready to be productive? :D </Text>
-                <TouchableOpacity onPress={() => { this.getLocation(); }} style={styles.btnContainer}>
-                    <Text style={styles.btn}>Get Location</Text>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <Text style={styles.logo}>RBKlock-X</Text>
+                <View >
+                    <Clock/>
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    counter: {
+        fontSize: 35,
+        fontWeight: "bold",
+    },
     btnContainer: {
         elevation: 8,
         backgroundColor: "#841584",
         borderRadius: 20,
         paddingVertical: 10,
         marginHorizontal: 35,
-        marginTop: 25
+        marginTop: 35
     },
     btn: {
         fontSize: 18,
         color: "#fff",
         fontWeight: "bold",
         alignSelf: "center"
-    }
+    },
+    logo: {
+        fontSize: 40,
+        fontWeight: "bold",
+        color: "#841584",
+        textAlign: 'center',
+        marginBottom: 50
+    },
+    timer: {
+        fontSize: 18,
+
+        textAlign: 'center',
+        flexDirection: 'row',
+        alignSelf: "center",
+        alignItems: 'baseline',
+        marginBottom: 50
+    },
+    ready: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#841584",
+        textAlign: 'center',
+        marginBottom: 10
+    },
 })
