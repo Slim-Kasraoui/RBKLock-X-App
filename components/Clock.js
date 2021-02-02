@@ -17,53 +17,65 @@ export default class Clock extends React.Component {
         console.log('started');
     }
     clockOut = (time) => {
-        this.setState({ clockedIn: false })
+        this.setState({ clockedIn: false, time: time })
         console.log('Leaved');
         console.log(time);
+
     }
 
 
     render() {
         return (
+            <View style={styles.container}>
+                <Text style={styles.logo}>RBKlock-X</Text>
 
-            <Timer
-                direction="forward"
-                startImmediately={false}
-                onStart={this.clockIn}
-                onStop={this.clockOut}
-            >
-                {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
-                    <React.Fragment>
-                        <View style={styles.timer}>
-                            <Text style={styles.counter}><Timer.Hours /> : </Text>
-                            <Text style={styles.counter}><Timer.Minutes /> : </Text>
-                            <Text style={styles.counter}><Timer.Seconds /></Text>
-                        </View>
-                        <Text style={styles.ready}> Ready to be productive? :D </Text>
-                        {
-                            this.state.clockedIn  ?
-                                <TouchableOpacity onPress={() => {
-                                    var time;
-                                    time = parseInt(getTime()).toString();
-                                    var timeinS = time.slice(0,time.length - 3)
-                                    this.clockOut(timeinS)
-                                }} style={styles.btnContainer}>
-                                    <Text style={styles.btn}>Check out</Text>
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity onPress={start} style={styles.btnContainer}>
-                                    <Text style={styles.btn}>Check in</Text>
-                                </TouchableOpacity>
-                        }
-                    </React.Fragment>
-                )}
-            </Timer>
-
+                <Timer
+                    direction="forward"
+                    startImmediately={false}
+                    onStart={this.clockIn}
+                    onStop={this.clockOut}
+                >
+                    {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
+                        <React.Fragment>
+                            <View style={styles.timer}>
+                                <Text style={styles.counter}><Timer.Hours /> : </Text>
+                                <Text style={styles.counter}><Timer.Minutes /> : </Text>
+                                <Text style={styles.counter}><Timer.Seconds /></Text>
+                            </View>
+                            <Text style={styles.ready}> Ready to be productive? :D </Text>
+                            {
+                                this.state.clockedIn ?
+                                    <TouchableOpacity onPress={() => {
+                                        stop();
+                                        var time;
+                                        time = parseInt(getTime()).toString();
+                                        var timeinS = time.slice(0, time.length - 3)
+                                        this.clockOut(timeinS);
+                                        reset()
+                                    }} style={styles.btnContainer}>
+                                        <Text style={styles.btn}>Check out</Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity onPress={start} style={styles.btnContainer}>
+                                        <Text style={styles.btn}>Check in</Text>
+                                    </TouchableOpacity>
+                            }
+                        </React.Fragment>
+                    )}
+                </Timer>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    logo: {
+        fontSize: 40,
+        fontWeight: "bold",
+        color: "#841584",
+        textAlign: 'center',
+        marginBottom: 50
+    },
     counter: {
         fontSize: 35,
         fontWeight: "bold",
