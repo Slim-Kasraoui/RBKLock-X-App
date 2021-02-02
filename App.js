@@ -38,7 +38,17 @@ export default class App extends React.Component {
       })
       .catch(err => { console.log(err) })
   }
-
+ 
+  checks = () => {
+    this.checkServices()
+      .then(() => {
+        return this.requestPermission();
+      })
+      .then(() => {
+        return this.getPositionAndCheck();
+      })
+      .catch(err => { console.log(err) })
+  }
   checkServices = () => {
     return Location.hasServicesEnabledAsync().then(
       data => {
@@ -120,7 +130,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.loggedIn ? <Home loc={RBKlocation} state={this.state} grantAccess= {this.getPositionAndCheck}/> : <Login logIn={this.logIn} />}
+        {this.state.loggedIn ? <Home loc={RBKlocation} state={this.state} grantAccess= {this.checks}/> : <Login logIn={this.logIn} />}
         <StatusBar style="auto" />
       </View>
     )

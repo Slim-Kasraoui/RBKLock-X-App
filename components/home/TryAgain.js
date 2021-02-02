@@ -6,9 +6,9 @@ export default class TryAgain extends Component {
         return (
             <View>
                 <Text style={styles.logo}>RBKlock-X</Text>
-                <TouchableOpacity onPress={()=>{this.props.grantAccess()}} style={styles.btnContainer}>
-                                        <Text style={styles.btn}> Oups try again! </Text>
-                                    </TouchableOpacity>
+                <TouchableOpacity onPress={() => { this.props.grantAccess() }} style={styles.btnContainer}>
+                    <Text style={styles.btn}> Oups try again! </Text>
+                </TouchableOpacity>
             </View>
         )
     }
